@@ -11,8 +11,11 @@ const TOKENS = [
     { name: "DAI", address: "0x6B175474E89094C44Da98b954EedeAC495271d0F" as `0x${string}`, decimals: 18 },
 ]
 
-export function TokenBalances() {
-    const { address, isConnected } = useAccount();
+interface TokenBalancesProps {
+    address?: `0x${string}`;
+}
+
+export function TokenBalances({address}:TokenBalancesProps) {
     const { data: balances } = useReadContracts({
         contracts: TOKENS.map((token) => ({
             address: token.address,
@@ -20,10 +23,10 @@ export function TokenBalances() {
             functionName: "balanceOf",
             args: [address!]
         })),
-        query: { enabled: isConnected }
+        query: { enabled: !!address }
     })
 
-    if (!isConnected) return null;
+    if (!!address) return null;
 
     return (
         <div className="mt-6 p-6 border rounded-xl max-w-md w-full">
