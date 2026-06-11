@@ -3,13 +3,15 @@
 import Image from "next/image";
 import { useState } from "react";
 import { isAddress } from "viem";
-import { useBalance, useEnsAddress, useEnsAvatar, useEnsName } from "wagmi";
+import { useBalance, useEnsAddress, useEnsAvatar, useEnsName, useChainId } from "wagmi";
+import { getExplorerUrl } from "../lib/chains";
 
 interface AddressSearchProps {
     onSearch?: (address: `0x${string}`) => void
 }
 
 export function AddressSearch({ onSearch }: AddressSearchProps) {
+    const chainId = useChainId();
     const [input, setValue] = useState("");
     const [searched, setSearched] = useState("");
     const [copied, setCopied] = useState(false)
@@ -130,12 +132,12 @@ export function AddressSearch({ onSearch }: AddressSearchProps) {
 
                     {/* Etherscan Link */}
                     <a
-                        href={`https://etherscan.io/address/${finalAddress}`}
+                        href={`${getExplorerUrl(chainId)}/address/${finalAddress}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="block text-center text-xs text-blue-500 hover:underline pt-2 border-t mt-2"
                     >
-                        View full history on EtherScan ↗
+                        View full history on Explorer ↗
                     </a>
                 </div>
             )}

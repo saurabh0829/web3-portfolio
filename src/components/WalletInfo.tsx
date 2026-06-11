@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { useAccount, useBalance, useEnsName } from "wagmi";
+import { useEthPrice } from "../hooks/useEthPrice";
 
 export function WalletInfo(){
     const {address, isConnected, chain} = useAccount();
     const {data:balance} = useBalance({address});
     const {data:ensName} = useEnsName({address})
+    const ethPrice = useEthPrice();
 
     const [copied, setCopied] = useState(false)
 
@@ -18,6 +20,10 @@ export function WalletInfo(){
     } 
 
     if(!isConnected) return <p>Connect your Wallet Above</p>
+
+    const usdValue = balance && ethPrice 
+        ? (parseFloat(balance.formatted)*ethPrice)
+        : null
 
     return(
         <div className="mt-8 p-6 border rounded-xl max-w-md w-full">
@@ -43,6 +49,9 @@ export function WalletInfo(){
                     <span className="font-semibold">
                         {balance ? `${parseFloat(balance.formatted).toFixed(4)} ${balance.symbol}`:"Loading"}
                     </span>
+                    {usdValue && 
+                        <p className="text-xs text-gray-400">${usdValue} USD</p>
+                    }
                 </div>
 
                 <div className="flex justify-between gap-4">

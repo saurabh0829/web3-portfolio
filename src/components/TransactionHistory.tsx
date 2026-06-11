@@ -1,10 +1,12 @@
 "use client";
-
+import { getExplorerUrl } from "../lib/chains";
+import { useChainId } from "wagmi";
 import { useTransactionHistory } from "../hooks/useTransactionHistory";
 
 interface Props {address?: string}
 
 export function TransactionHistory({address}:Props){
+    const chainId = useChainId();
     const {transfers, loading, error} = useTransactionHistory(address);
 
     if(!address) return null;
@@ -22,7 +24,7 @@ export function TransactionHistory({address}:Props){
             <div>
                 {transfers.map((txn)=>(
                     <a 
-                        href={`https://etherscan.io/tx/${txn.hash}`}
+                        href={`${getExplorerUrl(chainId)}/tx/${txn.hash}`}
                         key={txn.hash}
                         target="_blank"
                         rel="noopener noreferrer"

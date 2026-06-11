@@ -6,12 +6,15 @@ import {
   AssetTransfersResult,
   SortingOrder,
 } from "alchemy-sdk";
-import { alchemyMainnet } from "../lib/Alchemy";
+import { getAlchemy } from "../lib/chains";
+import { useChainId } from "wagmi";
 
-// Creating a new Type 
+// Creating a new Type
 export type Transfer = AssetTransfersResult & {direction:'in'| 'out'};
 
 export function useTransactionHistory(address?:string){
+    const chainId = useChainId();
+    const alchemy = getAlchemy(chainId)
     const [transfers, setTransfers] = useState<Transfer[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null)
@@ -35,8 +38,8 @@ export function useTransactionHistory(address?:string){
 
         // Fetch sent + received in parallel - like Promise.all for two queries
         Promise.all([
-            alchemyMainnet.core.getAssetTransfers({...params, fromAddress:address}), //sent
-            alchemyMainnet.core.getAssetTransfers({...params, toAddress:address}) //received
+            alchemy.core.getAssetTransfers({...params, fromAddress:address}), //sent
+            alchemy.core.getAssetTransfers({...params, toAddress:address}) //received
         ])
         .then(([sent, received])=>{
             // adding direction property to each transfer
@@ -58,7 +61,7 @@ export function useTransactionHistory(address?:string){
         })
         .catch((e)=>setError(e.message))
         .finally(()=>setLoading(false))
-    }, [address])
+    }, [address, chainId])
 
     return {transfers, loading, error}
 }
