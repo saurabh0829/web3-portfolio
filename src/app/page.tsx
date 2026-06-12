@@ -75,7 +75,7 @@ export default function Home() {
       {/* ── Footer ── */}
       <footer className="text-center py-6 text-xs text-gray-400 border-t mt-8">
         Built by{" "}
-        <a href="https://github.com/YOUR_USERNAME"
+        <a href="https://github.com/saurabh0829"
            className="text-blue-500 hover:underline">Saurabh Sharma
         </a>{" · "}
         <a href="https://github.com/saurabh0829/web3-portfolio"

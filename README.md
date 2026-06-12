@@ -41,7 +41,7 @@
 
 ## 🚀 Running Locally
 ```bash
-git clone https://github.com/YOUR_USERNAME/web3-portfolio-dashboard
+git clone https://github.com/saurabh0829/web3-portfolio
 cd web3-portfolio
 npm install
 cp .env.example .env.local   # add your Alchemy + WalletConnect keys
