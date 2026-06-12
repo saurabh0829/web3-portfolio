@@ -5,7 +5,7 @@
 > and transaction history. Deployed on Vercel.
 
 ## 🌐 Live Demo
-[your-app.vercel.app](https://your-app.vercel.app)
+[your-app.vercel.app](https://web3-portfolio-beta.vercel.app/)
 
 ## 🎥 Demo Video
 [loom-link — 60 second walkthrough]
