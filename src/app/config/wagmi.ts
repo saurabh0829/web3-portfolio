@@ -11,7 +11,7 @@ export const config = getDefaultConfig({
     transports: {
         [mainnet.id]: http(`https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`),
         [sepolia.id]: http(`https://eth-sepolia.g.alchemy.com/v2/${alchemyKey}`),
-        [base.id]: http(`https://base-mainnet.g.alchemy.com/v2/${alchemyKey}`),
+        [base.id]: http("/api/rpc/base"),
     },
     ssr: true,
 })

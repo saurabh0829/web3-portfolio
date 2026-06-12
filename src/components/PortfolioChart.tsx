@@ -37,10 +37,10 @@ export function PortfolioChart ({tokens, ethBalance}:Props){
                 </PieChart>
             </ResponsiveContainer>
             {/* Legend */}
-            <div>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3 justify-center">
                 {data.map((d, i)=>(
-                    <div key={i} className="flex flex-wrap gap-2 mt-2 justify-center">
-                        <div className="w-2.5 h-2.5 rounded-full"
+                    <div key={i} className="flex items-center gap-1.5 text-xs">
+                        <div className="w-2.5 h-2.5 rounded-full shrink-0"
                             style={{background: COLORS[i % COLORS.length]}}
                         />
                         {d.name}
